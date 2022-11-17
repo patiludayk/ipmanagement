@@ -2,8 +2,7 @@ package com.network.ipmanagement.controller;
 
 import com.network.ipmanagement.dto.IpAddressDetail;
 import com.network.ipmanagement.dto.IpCreate;
-import com.network.ipmanagement.repository.IpStore;
-import com.network.ipmanagement.service.IpManagmentService;
+import com.network.ipmanagement.service.IpManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,32 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class IpManagmentController {
+public class IpManagementController {
 
-    private IpManagmentService ipManagmentService;
+    private IpManagementService ipManagementService;
 
     @Autowired
-    public IpManagmentController(IpManagmentService ipManagmentService){
-        this.ipManagmentService = ipManagmentService;
+    public IpManagementController(IpManagementService ipManagementService){
+        this.ipManagementService = ipManagementService;
     }
 
     @PostMapping("create")
     public boolean createIpForCIDRBlock(@RequestBody IpCreate ipCreate){
-
-        ipManagmentService.createIP(ipCreate.getIpWithCIDR());
-
-        return true;
+        return ipManagementService.createIP(ipCreate.getIpWithCIDR());
     }
 
     @GetMapping("getAllIps")
     public List<IpAddressDetail> getAllIpsWithStatus(){
-        return ipManagmentService.getAllIps();
+        return ipManagementService.getAllIps();
     }
 
     @PatchMapping("acquire/{ip}")
     public boolean acquireIp(@PathVariable String ip){
-        ipManagmentService.acquireIp(ip);
-
-        return true;
+        return ipManagementService.acquireIp(ip);
     }
 }

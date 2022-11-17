@@ -17,7 +17,6 @@ public class StoreServiceImpl implements StoreService {
         this.ipRepository = ipRepository;
     }
 
-
     @Override
     public IpStore saveIpAddress(IpStore ipStore) {
         return ipRepository.save(ipStore);
